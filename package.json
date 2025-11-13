@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next-on-pages",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "preview": "npm run build && wrangler pages dev"
+    "pages:build": "npx @cloudflare/next-on-pages",
+    "preview": "npm run pages:build && wrangler pages dev"
   },
   "dependencies": {
     "@tabler/icons-react": "^3.35.0",
