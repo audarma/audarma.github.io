@@ -12,6 +12,18 @@ interface CerebrasModel {
   outputCost: number; // per 1M tokens
 }
 
+interface CerebrasResponse {
+  choices: Array<{
+    message?: {
+      content?: string;
+    };
+  }>;
+  usage?: {
+    prompt_tokens: number;
+    completion_tokens: number;
+  };
+}
+
 const MODELS: CerebrasModel[] = [
   {
     id: 'qwen-3-32b',
@@ -89,7 +101,7 @@ You may think through your translation process, but ultimately return ONLY a val
     throw new Error(`Cerebras API error: ${response.status} ${error}`);
   }
 
-  const data = await response.json();
+  const data = await response.json() as CerebrasResponse;
   const content = data.choices[0]?.message?.content;
 
   if (!content) {

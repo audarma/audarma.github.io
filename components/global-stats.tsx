@@ -23,7 +23,7 @@ export function GlobalStats() {
     const fetchStats = async () => {
       try {
         const response = await fetch('/api/stats');
-        const data = await response.json();
+        const data = await response.json() as Stats;
         setStats(data);
       } catch (error) {
         console.error('Error fetching stats:', error);

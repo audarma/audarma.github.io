@@ -5,6 +5,17 @@
 
 import { LLMProvider, TranslationItem } from 'audarma';
 
+interface TranslationAPIResponse {
+  success: boolean;
+  translations: string[];
+  meta?: {
+    tokens: number;
+    cost: number;
+    model: string;
+    itemCount: number;
+  };
+}
+
 export function createApiLLMProvider(): LLMProvider {
   return {
     async translateBatch(
@@ -32,7 +43,7 @@ export function createApiLLMProvider(): LLMProvider {
         throw new Error(`Translation API error: ${response.status} ${error}`);
       }
 
-      const data = await response.json();
+      const data = await response.json() as TranslationAPIResponse;
       console.log(`[API Provider] Received ${data.translations?.length || 0} translations`);
       console.log('[API Provider] Sample translation:', data.translations?.[0]);
 
