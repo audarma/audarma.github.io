@@ -5,7 +5,7 @@ export const runtime = 'edge';
 import { AudarProvider, ViewTranslationProvider } from "audarma";
 import { useEffect, useState } from "react";
 import { useAudarmaConfig } from "@/lib/audarma-config";
-import { getTopStories, getStorySummary, type HNStory } from "@/lib/hackernews";
+import { getTopStories, getStorySummary, getStoryAge, type HNStory } from "@/lib/hackernews";
 import { StoryCard } from "@/components/story-card";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { GlobalStats } from "@/components/global-stats";
