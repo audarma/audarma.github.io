@@ -132,16 +132,28 @@ You may think through your translation process, but ultimately return ONLY a val
     throw new Error('Response is not an array');
   }
 
-  // Ensure all items are strings (handle objects with translated field)
-  const translations = parsed.map((item: unknown) => {
+  // Ensure all items are strings (handle objects with translated/text field)
+  const translations = parsed.map((item: unknown, index: number) => {
     if (typeof item === 'string') {
       return item;
     }
-    if (typeof item === 'object' && item !== null && 'translated' in item) {
-      return String((item as { translated: unknown }).translated);
+    if (typeof item === 'object' && item !== null) {
+      // Try common field names
+      const obj = item as Record<string, unknown>;
+      if ('translated' in obj && typeof obj.translated === 'string') {
+        return obj.translated;
+      }
+      if ('text' in obj && typeof obj.text === 'string') {
+        return obj.text;
+      }
+      if ('translation' in obj && typeof obj.translation === 'string') {
+        return obj.translation;
+      }
+      // Log unexpected format for debugging
+      console.warn(`[Cerebras] Unexpected object format at index ${index}:`, item);
     }
-    // Fallback: stringify the object
-    return JSON.stringify(item);
+    // Last resort: convert to string
+    return String(item);
   });
 
   // Calculate cost

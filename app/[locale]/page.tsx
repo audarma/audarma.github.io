@@ -1,11 +1,16 @@
 "use client";
 
-export const runtime = 'edge';
+export const runtime = "edge";
 
 import { AudarProvider, ViewTranslationProvider } from "audarma";
 import { useEffect, useState } from "react";
 import { useAudarmaConfig } from "@/lib/audarma-config";
-import { getTopStories, getStorySummary, getStoryAge, type HNStory } from "@/lib/hackernews";
+import {
+  getTopStories,
+  getStorySummary,
+  getStoryAge,
+  type HNStory,
+} from "@/lib/hackernews";
 import { StoryCard } from "@/components/story-card";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { GlobalStats } from "@/components/global-stats";
@@ -22,7 +27,7 @@ export default function DemoPage() {
 
   // Debug: Log locale changes
   useEffect(() => {
-    console.log('[Demo Page] Current locale:', currentLocale);
+    console.log("[Demo Page] Current locale:", currentLocale);
   }, [currentLocale]);
 
   const handleClearCache = () => {
@@ -117,7 +122,7 @@ export default function DemoPage() {
     {
       contentType: "ui",
       contentId: "powered_kv",
-      text: "Vercel KV for global stats",
+      text: "Cloudflare KV for global stats",
     },
     { contentType: "ui", contentId: "try_heading", text: "Try Audarma" },
     {
@@ -205,11 +210,7 @@ export default function DemoPage() {
                     title="Clear translation cache"
                   >
                     <IconTrash size={16} />
-                    <TranslatedText
-                      id="clear_cache"
-                      text="Cache"
-                      as="span"
-                    />
+                    <TranslatedText id="clear_cache" text="Cache" as="span" />
                   </button>
                   <a
                     href="https://github.com/audarma/audarma"
@@ -341,7 +342,7 @@ export default function DemoPage() {
                         •{" "}
                         <TranslatedText
                           id="powered_kv"
-                          text="Vercel KV for global stats"
+                          text="Cloudflare KV for global stats"
                         />
                       </li>
                     </ul>

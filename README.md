@@ -15,13 +15,14 @@ Live demonstration of [Audarma](https://github.com/audarma/audarma) - LLM-powere
 - Next.js 16 with App Router
 - Audarma translation library
 - Cerebras Qwen3 models (blazing fast LLM inference)
-- Vercel KV for global stats storage
+- Cloudflare KV for global stats storage
 - next-intl for locale routing
 - Tailwind CSS for styling
 
 ## Local Development
 
 1. Clone and install:
+
 ```bash
 git clone https://github.com/audarma/audarma.github.io.git
 cd audarma.github.io
@@ -29,6 +30,7 @@ npm install
 ```
 
 2. Create `.env.local`:
+
 ```bash
 CEREBRAS_API_KEY=your_key_here
 ```
@@ -36,6 +38,7 @@ CEREBRAS_API_KEY=your_key_here
 Get your free Cerebras API key at https://cloud.cerebras.ai
 
 3. Run development server:
+
 ```bash
 npm run dev
 ```
