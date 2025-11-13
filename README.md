@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Audarma Demo
 
-## Getting Started
+Live demonstration of [Audarma](https://github.com/audarma/audarma) - LLM-powered translation system for React/Next.js.
 
-First, run the development server:
+## What This Demo Shows
 
+- Real-time translation of Hacker News stories
+- Smart caching with localStorage (instant when switching back)
+- Global usage statistics across all users
+- Automatic model fallback on rate limits (Qwen3-32B → Qwen3-235B)
+- Support for 6 languages: English, Spanish, French, German, Russian, Japanese
+
+## Tech Stack
+
+- Next.js 16 with App Router
+- Audarma translation library
+- Cerebras Qwen3 models (blazing fast LLM inference)
+- Vercel KV for global stats storage
+- next-intl for locale routing
+- Tailwind CSS for styling
+
+## Local Development
+
+1. Clone and install:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/audarma/audarma.github.io.git
+cd audarma.github.io
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Create `.env.local`:
+```bash
+CEREBRAS_API_KEY=your_key_here
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Get your free Cerebras API key at https://cloud.cerebras.ai
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. Run development server:
+```bash
+npm run dev
+```
 
-## Learn More
+Open http://localhost:3000/en
 
-To learn more about Next.js, take a look at the following resources:
+## Deploy to Vercel
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Push to GitHub
+2. Import project in Vercel dashboard
+3. Enable Vercel KV in Storage tab
+4. Add `CEREBRAS_API_KEY` environment variable
+5. Deploy
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Vercel will automatically configure KV environment variables.
 
-## Deploy on Vercel
+## How It Works
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Fetches top 8 stories from Hacker News API
+2. User selects language from dropdown
+3. Audarma translates titles and summaries using Cerebras Qwen3
+4. Translations cached in localStorage (instant on revisit)
+5. Global stats tracked in Vercel KV (all users combined)
+6. Automatic model fallback if rate limited
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Architecture
+
+- `/app/[locale]/page.tsx` - Main demo page with AudarProvider
+- `/app/api/translate/route.ts` - Translation endpoint with model fallback
+- `/app/api/stats/route.ts` - Global statistics endpoint
+- `/lib/cerebras-provider.ts` - LLM provider with fallback logic
+- `/lib/localstorage-adapter.ts` - Database adapter for caching
+- `/lib/hackernews.ts` - HN API fetcher
+
+## Links
+
+- Main library: https://github.com/audarma/audarma
+- npm package: https://www.npmjs.com/package/audarma
+- Live demo: https://audarma.github.io
