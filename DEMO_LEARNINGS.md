@@ -62,6 +62,23 @@ const translations = parsed.map((item: unknown) => {
 
 ---
 
+### 3. Cache Button Translation Collision in Elvish
+**Issue**: In Elvish (Quenya), the "Cache" button text was replaced with a story title translation: "Nano Banana ná tincundë sáva AI tulkuntúra-nu"
+
+**Root Cause**: Short UI text like "Cache" can collide with story titles that contain the same word. Even though cache keys include both `contentType` and `contentId`, having very short or common words increases the chance of translation mix-ups.
+
+**Fix Applied**:
+- Changed `contentId` from `"clear_cache"` to `"button_clear_cache"` for better uniqueness
+- Prefix helps distinguish UI buttons from other content types
+- More descriptive IDs reduce collision probability
+
+**Prevention**:
+- Use descriptive, prefixed IDs for UI elements (e.g., `button_*`, `label_*`, `heading_*`)
+- Avoid single-word IDs for common words
+- Consider namespace patterns: `{component}_{element}_{description}`
+
+---
+
 ## Translation Quality Issues
 
 ### Fantasy Languages (Klingon, Quenya, Dothraki)

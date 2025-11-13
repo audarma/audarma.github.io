@@ -137,7 +137,7 @@ export default function DemoPage() {
     { contentType: "ui", contentId: "story_by", text: "by" },
     { contentType: "ui", contentId: "story_comments", text: "comments" },
     { contentType: "ui", contentId: "story_read", text: "Read article" },
-    { contentType: "ui", contentId: "clear_cache", text: "Cache" },
+    { contentType: "ui", contentId: "button_clear_cache", text: "Cache" },
   ];
 
   const translationItems = [
@@ -210,7 +210,7 @@ export default function DemoPage() {
                     title="Clear translation cache"
                   >
                     <IconTrash size={16} />
-                    <TranslatedText id="clear_cache" text="Cache" as="span" />
+                    <TranslatedText id="button_clear_cache" text="Cache" as="span" />
                   </button>
                   <a
                     href="https://github.com/audarma/audarma"
